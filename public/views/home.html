@@ -1,0 +1,59 @@
+<div>
+	<div>
+		<div>
+			<div class="form-group">
+				<div class="row">
+					<div class="text-center col-md-4">
+						<label>Digite o nome, ou email, ou a idade do usuário:</label>
+						<input type="text" class="form-control" ng-model="search">	
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr/>
+		<table class="table table-bordered table-striped table-hovered table-condensed">
+			<thead class="thead-dark">
+				<th>Nome</th>
+				<th>Email</th>
+				<th>Idade</th>
+				<th>Ação</th>
+			</thead>
+			<tr ng-repeat = "User in users | filter: search">
+				<td ng-if="!editing">{{User.name}}</td>
+				<td ng-if="!editing">{{User.email}}</td>
+				<td ng-if="!editing">{{User.age}}</td>
+				<td ng-if="editing"> <!-- updating -->
+					<input type="text" ng-model="User.name" class="form-control" style="width:300px;">
+				</td>
+				<td ng-if="editing">
+					<input type="text" ng-model="User.email" class="form-control" style="width:300px;">
+				</td>
+				<td ng-if="editing">
+					<input type="number" ng-model="User.age" class="form-control" style="width:100px;">
+				</td>
+
+				<td>
+					<button class="btn btn-warning" ng-hide="editing" ng-click="editing=!editing">Editar</button>
+					<button class="btn btn-warning" ng-hide="!editing" ng-click="update(User);editing=false;">Atualizar</button>
+					<button  ng-hide="!editing" class="btn btn-primary" ng-click="editing=!editing">Cancelar</button>
+					<button class="btn btn-danger" ng-hide="editing" ng-click="removeUser(User)">Deletar</button>
+				</td>
+			</tr>
+		</table>
+		<button class="btn btn-primary btn-md" ng-hide="addUser==true;" ng-click="addUser = !addUser">Adicionar Usuário</button>
+		</div>
+		<div class="create-users" ng-hide="!addUser">
+			<div class="form-group">
+				<label for="name">Nome</label>
+				<input type="text" required id="name" ng-model="user.name" class="form-control" style="width: 300px">
+				<label for="name">Email</label>
+				<input type="email" required id="email" ng-model="user.email" class="form-control" style="width: 300px">
+				<label for="name">Idade</label>
+				<input type="number" required id="age" ng-model="user.age" class="form-control" style="width: 300px">
+			
+			</div>
+			<button class="btn btn-success" ng-click="add();addUser=false;" ng-disabled="!user.name || !user.email || !user.age">Adicionar</button>
+			<button  class="btn btn-primary" ng-click="addUser=false">Cancelar</button>
+		</div>
+	</div>
+</div>
